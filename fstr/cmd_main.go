@@ -1,6 +1,6 @@
 package fstr
 
-var MainStr = `package main
+var Cmd_Main_Str = `package main
 
 import (
 	"%s/cmd/cli"

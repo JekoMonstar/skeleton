@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/JekoMonstar/skeleton/fstr"
 	"os"
 	"strings"
+
+	"github.com/JekoMonstar/skeleton/fstr"
 )
 
 type Frame struct {
@@ -46,5 +47,15 @@ func (f *Frame) autoTouch(path, fstr string) {
 }
 
 func (f *Frame) Touch() {
-	f.autoTouch(f.pathWithPrefix("cmd/cli/main.go"), fmt.Sprintf(fstr.MainStr, f.Module))
+	f.autoTouch(f.pathWithPrefix("go.mod"), fmt.Sprintf(fstr.GoModStr, f.Module))
+	f.autoTouch(f.pathWithPrefix("cmd/main.go"), fmt.Sprintf(fstr.Cmd_Main_Str, f.Module))
+	f.autoTouch(f.pathWithPrefix("cmd/cli/root.go"), fmt.Sprintf(fstr.Cmd_Cli_Root_Str, f.Name))
+}
+
+func (f *Frame) Interface() {
+	os.MkdirAll(f.pathWithPrefix("pub/glb"), os.ModePerm)
+
+	f.autoTouch(f.pathWithPrefix("pub/glb/cv.go"), fmt.Sprintf(fstr.Pub_Glb_Cv_Str, f.Module, f.Module))
+	f.autoTouch(f.pathWithPrefix("cmd/cli/interface.go"), fmt.Sprintf(fstr.Cmd_Cli_Interface_Str, f.Module, f.Module))
+	f.autoTouch(f.pathWithPrefix("cmd/cli/interface.go"), fmt.Sprintf(fstr.Cmd_Cli_Interface_Str, f.Module, f.Module))
 }
